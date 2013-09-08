@@ -15,7 +15,7 @@ app.configure 'production', ->
   app.set 'mongoUri', process.env.MONGOLAB_URI or process.env.MONGOHQ_URL
 
 app.configure ->
-  app.set 'port', 4134
+  app.set 'port', process.env.PORT or 4134
   app.set 'view engine', 'html'
   app.engine 'html', engines.eco
   app.use express.bodyParser()
