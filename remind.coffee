@@ -1,6 +1,8 @@
 mongo = require 'mongodb'
+chrono = require 'chrono-node'
 express = require 'express'
 engines = require 'consolidate'
+optimist = require 'optimist'
 Twitter = require 'ntwitter'
 
 app = express()
@@ -27,7 +29,12 @@ mongo.Db.connect app.get('mongoUri'), (err, db) ->
     res.send 'twine-remind'
 
   app.post '/', (req, res) ->
-    res.jsonp req.body
+    if req.body.tweet
+      params = req.body.params
+      argv = optimist
+        .usage('remind [task]')
+        .parse(params.split())
+      req.jsonp argv._
 
 app.listen app.get('port'), ->
   console.log "Server started on port #{app.get 'port'} in #{app.settings.env} mode."

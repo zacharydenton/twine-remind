@@ -10,6 +10,8 @@
 		"consolidate": "*",
 		"eco": "*",
 		"request": "*",
+		"chrono-node": "*",
+		"optimist": "*",
 		"mongodb": "*"
 	}
 }
