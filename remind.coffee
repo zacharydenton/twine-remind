@@ -34,7 +34,14 @@ mongo.Db.connect app.get('mongoUri'), (err, db) ->
       argv = optimist
         .usage('remind [task]')
         .parse(params.split())
-      res.jsonp chrono.parse(argv._.join(' '))
+      date = chrono.parse(argv._.join(' '))
+      reminder =
+        date: date
+        user: req.body.user
+        tweet: req.body.tweet
+        text: argv._.join(' ')
+      reminders.insert reminder, ->
+        res.jsonp reminder
 
 app.listen app.get('port'), ->
   console.log "Server started on port #{app.get 'port'} in #{app.settings.env} mode."
